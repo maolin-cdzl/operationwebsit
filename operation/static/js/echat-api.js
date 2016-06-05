@@ -2,14 +2,14 @@
 	$.extend({
 		eChatApi: function() {
 			var api = {};
-			var url_prefix = '/rt';
+			var host_url = 'http://localhost:3000/rt';
 
 			api.onAjaxError= function(e) {
 				alert(e);
 			};
 			api.getDeviceSet= function(callback) {
 				$.ajax({
-					url: url_prefix + '/dev/info',
+					url: host_url + '/dev/info',
 					method: 'GET',
 					success: function(receivedData, status, info) {
 						console.info(receivedData);
@@ -22,7 +22,25 @@
 					},
 					error: api.onAjaxError
 				});
-			}
+			};
+			api.getServerList = function(callback) {
+				$.ajax({
+					url: host_url + '/server/list',
+					method: 'GET',
+					success: function(receivedData,status,info) {
+						console.info(receivedData);
+						var servers = JSON.parse(receivedData);
+						callback(servers);
+					},
+					error: api.onAjaxError
+				});
+			};
+
+			api.listenServerEvent = function(opt) {
+				api.server_sse = $.SSE(host_url + '/server/pub',opt);
+				api.server_sse.start();
+
+			};
 			return api;
 		}
 	});

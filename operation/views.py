@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
-import requests
 from .forms import *
 
 def start(request):
@@ -9,11 +8,18 @@ def start(request):
     return render(request, "operation/start.html",
                   {"nav_active":"start"})
 
-def dashboard(request):
-    """Dashboard page.
+def login(request):
+    """Start page with a documentation.
     """
-    return render(request, "operation/dashboard.html",
-                  {"nav_active":"dashboard"})
+    return render(request, "operation/login.html",
+                  {"nav_active":"start"})
+
+def runtime(request):
+    return render(request, "operation/runtime.html",{"nav_active":"runtime"})
+
+def runtime_server(request):
+    return render(request, "operation/runtime_server.html",
+                  {"nav_active":"runtime"})
 
 def charts(request):
     """Charts page.
@@ -56,22 +62,4 @@ def blank(request):
     """
     return render(request, "operation/sb_admin_blank.html",
                   {"nav_active":"blank"})
-
-def devset(request):
-    print('devset request,method: %s' % request.method)
-    if request.method == 'GET':
-        try:
-            r = requests.get('http://127.0.0.1:3000/rt/dev/info')
-            print(r.url)
-
-            print('status: %d,content: %s' % (r.status_code, r.text))
-            if r.status_code == 200:
-                return HttpResponse(r.text)
-            else:
-                return HttpResponse(status=r.status_code)
-        except Exception as e:
-            print(e.message)
-            return HttpResponse(status=500)
-
-    return HttpResponse(status=405)
 

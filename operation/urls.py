@@ -3,8 +3,8 @@ from django.contrib.auth import views as auth_views
 from . import views as opt_views
 
 urlpatterns = [
-    url(r'^$', opt_views.start, name='sb_admin_start'),
-    url(r'login/$', opt_views.login, { 'template_name' : 'operation/login.html'}),
+    url(r'^$', opt_views.login, name='login'),
+    url(r'login/$', opt_views.login,name='login' ),
     url(r'runtime/$', opt_views.runtime, name='runtime'),
     url(r'runtime/device/$', opt_views.device, name='device'),
     url(r'runtime/server/$', opt_views.server,name='server'),

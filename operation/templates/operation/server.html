@@ -1,14 +1,14 @@
 {% extends "operation/base.html" %}
 {% load static %}
-{% block sb_admin_title %}系统状态{% endblock sb_admin_title %}
+{% block sb_admin_title %}服务器{% endblock sb_admin_title %}
 {% block sb_admin_subheading %}<small>服务器状态</small>{% endblock sb_admin_subheading %}
-{% block sb_admin_breadcrumb %}<i class="fa fa-dashboard"></i>  <a href="#">Dashboard</a>{% endblock sb_admin_breadcrumb %}
+{% block sb_admin_breadcrumb %}{% endblock sb_admin_breadcrumb %}
 {% block sb_admin_breadcrumb_active %}{% endblock sb_admin_breadcrumb_active %}
 {% block sb_admin_content %}
-<row>
+<div class="row">
 <div id="server-list" class="btn-group col-md4" role="group" aria-label="...">
 </div>
-</row>
+</div>
 
 <div class="container">
     <div class='col-md-4'>
@@ -33,10 +33,10 @@
 	</div>
 	<button id="refresh" type="button" class="btn btn-default col-md-2">刷新</button>
 </div>
-<row>
+<div class="row">
 	<div class="panel panel-green">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-heartbeat"></i>实时监控</h3>
+			<h3 class="panel-title"><i class="fa fa-heartbeat"></i>  实时监控</h3>
 		</div>
 		<div class="panel-body">
 			<div class="flot-chart">
@@ -44,11 +44,11 @@
 			</div>
 		</div>
 	</div>
-</row>
-<row>
+</div>
+<div class="row">
 	<div class="panel panel-primary">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-user-md" aria-hidden="true"></i>在线统计</h3>
+			<h3 class="panel-title"><i class="fa fa-user-md" aria-hidden="true"></i>  在线统计</h3>
 		</div>
 		<div class="panel-body">
 			<div class="flot-chart">
@@ -56,11 +56,11 @@
 			</div>
 		</div>
 	</div>
-</row>
-<row>
+</div>
+<div class="row">
 	<div class="panel panel-yellow">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-audio-description"></i>会话统计</h3>
+			<h3 class="panel-title"><i class="fa fa-audio-description"></i>  会话统计</h3>
 		</div>
 		<div class="panel-body">
 			<div class="flot-chart">
@@ -68,7 +68,7 @@
 			</div>
 		</div>
 	</div>
-</row>
+</div>
 {% endblock sb_admin_content %}
 
 {% block sb_admin_custom_js %}

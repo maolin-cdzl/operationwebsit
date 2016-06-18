@@ -7,9 +7,15 @@
 			api.onAjaxError= function(e) {
 				alert(e);
 			};
-			api.listenServerEvent = function(opt) {
-				api.server_sse = $.SSE(host_url + '/server/pub',opt);
+			api.listenServerEvent = function(server,opt) {
+				api.server_sse = $.SSE(host_url + '/server/' + server + '/pub',opt);
 				api.server_sse.start();
+			};
+			api.stopListenServerEvent = function() {
+				if( api.server_sse ) {
+					api.server_sse.stop();
+					api.server_sse = null;
+				}
 			};
 
 			api._getStaticUrl = function(url,callback) {
@@ -85,7 +91,7 @@
 			api.serverUserLoad = function(server,options,callback) {
 				api._getEntityAttribWithParam('server',server,'userload',options,callback);
 			};
-			api.serverSpeakLoad = function(options,callback) {
+			api.serverSpeakLoad = function(server,options,callback) {
 				api._getEntityAttribWithParam('server',server,'speakload',options,callback);
 			};
 

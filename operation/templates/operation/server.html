@@ -5,16 +5,16 @@
 {% block sb_admin_breadcrumb %}<i class="fa fa-dashboard"></i>  <a href="#">Dashboard</a>{% endblock sb_admin_breadcrumb %}
 {% block sb_admin_breadcrumb_active %}{% endblock sb_admin_breadcrumb_active %}
 {% block sb_admin_content %}
-<div id="server-container">
-</div>
+<div id="server-container"></div>
 {% endblock sb_admin_content %}
 
 {% block sb_admin_custom_js %}
     <script src="{% static "js/plugins/flot/jquery.flot.js" %}"></script>
     <script src="{% static "js/plugins/flot/jquery.flot.tooltip.min.js" %}"></script>
     <script src="{% static "js/plugins/flot/jquery.flot.resize.js" %}"></script>
-    <script src="{% static "js/plugins/flot/jquery.flot.pie.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.time.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.axislabels.js" %}"></script>
     <script src="{% static "js/jquery.sse.js" %}"></script>
     <script src="{% static "js/echat-api.js" %}"></script>
-    <script src="{% static "js/runtime-server.js" %}"></script>
+    <script src="{% static "js/server.js" %}"></script>
 {% endblock sb_admin_custom_js %}

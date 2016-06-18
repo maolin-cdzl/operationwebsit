@@ -2,7 +2,7 @@
 {% load static %}
 {% block sb_admin_title %}系统状态{% endblock sb_admin_title %}
 {% block sb_admin_subheading %}<small>概要信息</small>{% endblock sb_admin_subheading %}
-{% block sb_admin_breadcrumb %}<i class="fa fa-dashboard"></i>  <a href="#">概要信息</a>{% endblock sb_admin_breadcrumb %}
+{% block sb_admin_breadcrumb %}{% endblock sb_admin_breadcrumb %}
 {% block sb_admin_breadcrumb_active %}{% endblock sb_admin_breadcrumb_active %}
 {% block sb_admin_content %}
 <div class="row">
@@ -14,12 +14,12 @@
                         <i class="fa fa-cloud fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">26</div>
+                        <div id="server-count" class="huge">0</div>
                         <div>服务器</div>
                     </div>
                 </div>
             </div>
-            <a href="#">
+            <a href="server/">
                 <div class="panel-footer">
                     <span class="pull-left">详细信息</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -36,7 +36,7 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">12</div>
+                        <div id="user-count" class="huge">0</div>
                         <div>在线用户</div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <i class="fa fa-comments fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">124</div>
+                        <div id="group-count" class="huge">0</div>
                         <div>活跃群组</div>
                     </div>
                 </div>
@@ -80,8 +80,8 @@
                         <i class="fa fa-stethoscope fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">13</div>
-                        <div>异常信息</div>
+                        <div id="company-count" class="huge">0</div>
+                        <div>公司</div>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
 					<div class="flot-chart-content" id="device-load"></div>
 				</div>
 				<div class="text-right">
-					<a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+					<a href="device/">详细信息<i class="fa fa-arrow-circle-right"></i></a>
 				</div>
 			</div>
 		</div>
@@ -260,39 +260,6 @@
     <script src="{% static "js/plugins/flot/jquery.flot.tooltip.min.js" %}"></script>
     <script src="{% static "js/plugins/flot/jquery.flot.resize.js" %}"></script>
     <script src="{% static "js/plugins/flot/jquery.flot.pie.js" %}"></script>
-    <script src="{% static "js/system-load.js" %}"></script>
     <script src="{% static "js/echat-api.js" %}"></script>
-	<script>
-		var api = $.eChatApi();
-		api.getDeviceSet(function(results){
-			console.info('results length: %d', results.length);
-			var data = [];
-			for(var i=0; i < results.length; i++) {
-				console.info('result[ %d ]: name=%s count=%d', i, results[i].name,results[i].count);
-				data.push({ label: results[i].name, data: results[i].count });
-			}
-
-			var opt = {
-				series: {
-					pie: {
-						show: true
-					}
-				},
-				grid: {
-					hoverable: true
-				},
-				tooltip: true,
-				tooltipOpts: {
-					content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
-					shifts: {
-						x: 20,
-						y: 0
-					},
-					defaultTheme: false
-				}
-			};
-			console.info(JSON.stringify(data));
-			var plotObj = $.plot($("#device-load"), data,opt);
-		});
-	</script>
+	<script src="{% static "js/runtime.js" %}"></script>
 {% endblock sb_admin_custom_js %}

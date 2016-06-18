@@ -17,9 +17,13 @@ def login(request):
 def runtime(request):
     return render(request, "operation/runtime.html",{"nav_active":"runtime"})
 
-def runtime_server(request):
-    return render(request, "operation/runtime_server.html",
-                  {"nav_active":"runtime"})
+def device(request):
+    return render(request, "operation/device.html",
+                  {"nav_active":"device"})
+
+def server(request):
+    return render(request, "operation/server.html",
+                  {"nav_active":"server"})
 
 def charts(request):
     """Charts page.

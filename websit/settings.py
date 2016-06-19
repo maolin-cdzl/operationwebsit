@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'i83r_q*c%qp-)*xp7^z+lxju22np4=7#e^^yvrk)!1*r&zsk6i'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['139.198.2.25','localhost','op.echat.com','op.91echat.com']
 
 
 # Application definition
@@ -116,7 +116,7 @@ USE_L10N = True
 USE_TZ = True
 
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL  = '/operation'
+LOGIN_REDIRECT_URL  = '/operation/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 

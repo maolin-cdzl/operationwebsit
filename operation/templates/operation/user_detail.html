@@ -73,7 +73,7 @@
 <div class="row">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-money fa-fw"></i> 上线记录</h3>
+			<h3 class="panel-title"><i class="fa fa-recycle fa-fw"></i> 上线记录</h3>
 		</div>
 		<div class="panel-body">
 			<div class="table-responsive">
@@ -101,7 +101,7 @@
 <div class="row">
 	<div class="panel panel-default">
 		<div class="panel-heading">
-			<h3 class="panel-title"><i class="fa fa-money fa-fw"></i> 操作记录</h3>
+			<h3 class="panel-title"><i class="fa fa-bars fa-fw"></i> 操作记录</h3>
 		</div>
 		<div class="panel-body">
 			<div class="table-responsive">
@@ -131,12 +131,11 @@
 {% block sb_admin_custom_js %}
     <script src="{% static "js/moment-with-locales.min.js" %}"></script>
     <script src="{% static "js/bootstrap-datetimepicker.min.js" %}"></script>
-    <script src="{% static "js/plugins/flot/jquery.flot.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.min.js" %}"></script>
     <script src="{% static "js/plugins/flot/jquery.flot.tooltip.min.js" %}"></script>
-    <script src="{% static "js/plugins/flot/jquery.flot.resize.js" %}"></script>
-    <script src="{% static "js/plugins/flot/jquery.flot.time.js" %}"></script>
-    <script src="{% static "js/plugins/flot/jquery.flot.axislabels.js" %}"></script>
-    <script src="{% static "js/jquery.sse.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.resize.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.time.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.axislabels.min.js" %}"></script>
     <script src="{% static "js/echat-api.js" %}"></script>
     <script src="{% static "js/user-detail.js" %}"></script>
 {% endblock sb_admin_custom_js %}

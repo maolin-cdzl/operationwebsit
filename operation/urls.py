@@ -9,11 +9,6 @@ urlpatterns = [
     url(r'runtime/device/$', opt_views.device, name='device'),
     url(r'runtime/server/$', opt_views.server,name='server'),
     url(r'runtime/user/detail/$', opt_views.user_detail,name='user_detail'),
-    url(r'charts/$', opt_views.charts, name='sb_admin_charts'),
-    url(r'tables/$', opt_views.tables, name='sb_admin_tables'),
-    url(r'forms/$', opt_views.forms, name='sb_admin_forms'),
-    url(r'bootstrap-elements/$', opt_views.bootstrap_elements, name='sb_admin_bootstrap_elements'),
-    url(r'bootstrap-grid/$', opt_views.bootstrap_grid, name='sb_admin_bootstrap_grid'),
-    url(r'rtl-dashboard/$', opt_views.rtl_dashboard, name='sb_admin_rtl_dashboard'),
-    url(r'blank/$', opt_views.blank, name='sb_admin_blank'),
+    url(r'runtime/company/detail/$', opt_views.company_detail,name='company_detail'),
+    url(r'runtime/group/detail/$', opt_views.group_detail,name='group_detail'),
 ]

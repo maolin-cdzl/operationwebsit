@@ -4,6 +4,17 @@
 			var api = {};
 			var host_url = 'http://139.198.2.25:8080/rt';
 
+			api.getURLParameter= function(sParam) {
+				var sPageURL = window.location.search.substring(1);
+				var sURLVariables = sPageURL.split('&');
+				for (var i = 0; i < sURLVariables.length; i++) {
+					var sParameterName = sURLVariables[i].split('=');
+					if (sParameterName[0] == sParam) {
+						return sParameterName[1];
+					}
+				}
+			};
+
 			api.onAjaxError= function(e) {
 				alert(e);
 			};
@@ -97,6 +108,13 @@
 			api.serverUser = function(server,callback) {
 				api._getEntityAttrib('server',server,'users',callback);
 			};
+			api.serverGroupCount = function(server,callback) {
+				api._getEntityAttrib('server',server,'groupcount',callback);
+			};
+			api.serverGroups = function(server,callback) {
+				api._getEntityAttrib('server',server,'groups',callback);
+			};
+
 			api.serverUserLoad = function(server,options,callback) {
 				api._getEntityAttribWithParam('server',server,'userload',options,callback);
 			};

@@ -11,7 +11,6 @@ $(document).ready(function(){
 			}
 		});
 		$.each(devices, function(i, item) {
-			console.log(item);
 			var $tr = $('<tr>').append(
 					$('<td>').text(item.name),
 					$('<td>').text(item.count)

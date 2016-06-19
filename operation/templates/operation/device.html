@@ -34,9 +34,9 @@
 {% block sb_admin_custom_js %}
     <!-- Flot Charts JavaScript -->
     <!--[if lte IE 8]><script src="js/excanvas.min.js"></script><![endif]-->
-    <script src="{% static "js/plugins/flot/jquery.flot.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.pie.min.js" %}"></script>
     <script src="{% static "js/plugins/flot/jquery.flot.tooltip.min.js" %}"></script>
-    <script src="{% static "js/plugins/flot/jquery.flot.pie.js" %}"></script>
     <script src="{% static "js/echat-api.js" %}"></script>
 	<script src="{% static "js/device.js" %}"></script>
 {% endblock sb_admin_custom_js %}

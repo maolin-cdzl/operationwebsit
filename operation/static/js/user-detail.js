@@ -34,7 +34,7 @@ function updateUserInfo() {
 			+ '<td>' + user.account + '</td>'
 			+ '<td>' + user.name + '</td>'
 			+ '<td>' + user.role + '</td>'
-			+ '<td>' + user.company + '</td>'
+			+ '<td><a href="/runtime/company/detail/?cid=' + user.company + '">' + user.company + '</a></td>'
 			+ '<td>' + user.create_time + '</td>'
 			+ '<td>' + user.service_begin + '</td>'
 			+ '<td>' + user.service_end + '</td>'
@@ -50,8 +50,8 @@ function updateUserRuntimeInfo() {
 		$('#user-runtime').find('tbody:last').append('<tr>'
 			+ '<td>' + current_uid + '</td>'
 			+ '<td>' + userRuntime.state + '</td>'
-			+ '<td>' + userRuntime.server + '</td>'
-			+ '<td>' + userRuntime.group + '</td>'
+			+ '<td><a href="/runtime/server/?server=' + userRuntime.server + '">' + userRuntime.server + '</a></td>'
+			+ '<td><a href="/runtime/group/detail/?gid=' + userRuntime.group + '">' + userRuntime.group + '</a></td>'
 			+ '<td>' + userRuntime.device+ '</td>'
 			+ '<td>' + userRuntime.lastLogin + '</td>'
 			+ '<td>' + userRuntime.lastLogout + '</td>'
@@ -127,16 +127,20 @@ function updateSessionList() {
 		start: start.format('YYYY-MM-DD HH:mm:ss'),
 		end: end.format('YYYY-MM-DD HH:mm:ss')
 	};
+	$('#session-table').find("tr:gt(0)").remove();
 	api.userSessions(current_uid,options,function(sessions,err){
 		if( !sessions ) {
 			return;
 		}
+		sessions.sort(function(a,b){
+			return a['l:tvstart'].localeCompare(b['l:tvstart']);
+		});
 		for(var i=0; i < sessions.length; i++) {
 			var session = sessions[i];
 			$('#session-table').find('tbody:last').append('<tr>'
 				+ '<td>' + session['l:tvstart'] + '</td>'
 				+ '<td>' + session['l:tvend'] + '</td>'
-				+ '<td>' + session['l:svc'] + '</td>'
+				+ '<td><a href="/runtime/server/?server=' + session['l:svc'] + '">' + session['l:svc'] + '</a></td>'
 				+ '<td>' + session['l:dev'] + '</td>'
 				+ '<td>' + session['l:dev-id'] + '</td>'
 				+ '<td>' + session['l:imsi'] + '</td>'
@@ -156,18 +160,22 @@ function updateActionList() {
 		start: start.format('YYYY-MM-DD HH:mm:ss'),
 		end: end.format('YYYY-MM-DD HH:mm:ss')
 	};
+	$('#action-table').find("tr:gt(0)").remove();
 
 	api.userActions(current_uid,options,function(actions,err) {
 		if( !actions ) {
 			return;
 		}
+		actions.sort(function(a,b){
+			return a['l:dt'].localeCompare(b['l:dt']);
+		});
 		var dom = $('#action-table').find('tbody:last');
 		for(var i=0; i<actions.length; i++){
 			var action = actions[i];
 			dom.append('<tr>'
 				+ '<td>' + action['l:dt'] + '</td>'
 				+ '<td>' + action['l:event'] + '</td>'
-				+ '<td>' + ( action['l:gid'] || '') + '</td>'
+				+ '<td>' + ( action['l:gid'] ? ('<a href="/runtime/group/detail/?gid=' + action['l:gid'] + '">' + action['l:gid'] + '</a>') : '') + '</td>'
 				+ '<td>' + ( action['l:tar'] || '') + '</td>'
 				+ '<td>' + ( action['l:tar-got'] || '') + '</td>'
 				+ '<td>' + ( action['l:tar-dent'] || '') + '</td>'
@@ -178,6 +186,28 @@ function updateActionList() {
 			);
 		}
 	});
+}
+
+
+function refresh() {
+	var uid = $('#uid-edit').val();
+	if( !uid || uid == current_uid ) {
+		return;
+	}
+	current_uid = uid;
+	updateUserInfo();
+	updateUserRuntimeInfo();
+
+	updateSessionList();
+	updateActionList();
+}
+
+function initFromUrl() {
+	var uid = api.getURLParameter('uid');
+	if( uid ) {
+		$('#uid-edit').val(uid);
+		refresh();
+	}
 }
 
 $(document).ready(function(){
@@ -191,19 +221,12 @@ $(document).ready(function(){
 			refresh();
 		}
 	});
-
-	function refresh() {
-		var uid = $('#uid-edit').val();
-		if( !uid || uid == current_uid ) {
-			return;
-		}
-		current_uid = uid;
-		updateUserInfo();
-		updateUserRuntimeInfo();
-
+	$('#refresh').click(function(){
 		updateSessionList();
 		updateActionList();
-	}
+	});
+
+	initFromUrl();
 
 });
 

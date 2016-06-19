@@ -1,13 +1,7 @@
 api = undefined;
-curServer = null;
-rtplot = null;
-ulplot = null;
-slplot = null;
-
-rtSeries = [{
-	label: '在线用户',
-	data : []
-}];
+current_cid = 0;
+ulplot = undefined;
+slplot = undefined;
 
 userLoadSeries = [
 	{ idx: 0,label: '在线用户',  data: [], lines: { show: true} },
@@ -29,60 +23,6 @@ speakLoadSeries = [
 	{ idx: 5,label: '掉话群组', data: [], lines: {show: true} },
 	{ idx: 6,label: '平均掉话时长(秒)', data: [] , lines: {show: true}},
 ];
-
-
-var rtflotopt= {
-	grid: {
-		borderWidth: 1,
-		minBorderMargin: 4,
-		labelMargin: 10,
-		//backgroundColor: {
-		//    colors: ["#fff", "#e4f4f4"]
-		//},
-		margin: {
-			top: 2,
-			bottom: 2,
-			left: 2
-		}
-	},
-	xaxis: {
-		mode: "time",
-		tickSize: [2,"second"],
-		tickFormatter: function(v,axis) {
-			var date = new Date(v);
-			if( date.getSeconds() % 10 == 0 ) {		// 10 second
-				var str =  date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
-				return str;
-			} else {
-				return "";
-			}
-		},
-		axisLabel: "时间(秒)",
-		axisLabelUseCanvas: true,
-		axisLabelFontSizePixels: 12,
-		axisLabelPadding: 10
-	},
-	yaxis: {
-		min: 0,
-		max: 20000,
-		tickFormatter: function(v, axis) {
-			if (v % 1000 == 0) {
-				var str = v + "";
-				return str;
-			} else {
-				return "";
-			}
-		},
-		axisLabel: "数量",
-		axisLabelUseCanvas: true,
-		axisLabelFontSizePixels: 12,
-		axisLabelPadding: 6
-	},
-	legend: {
-		show: true
-	}
-};
-
 
 var ulflotopt= {
 	grid: {
@@ -194,24 +134,6 @@ var slflotopt= {
 	}
 };
 
-function toggleULPlot(seriesIdx) {
-	console.log('toggleULPlot: %d', seriesIdx);
-	if( ulplot ) {
-		var data = ulplot.getData();
-		data[seriesIdx].lines.show = !data[seriesIdx].lines.show;
-		ulplot.setData(data);
-		ulplot.draw();
-	}
-}
-
-function toggleSLPlot(seriesIdx) {
-	if( slplot ) {
-		var data = slplot.getData();
-		data[seriesIdx].lines.show = !data[seriesIdx].lines.show;
-		slplot.setData(data);
-		slplot.draw();
-	}
-}
 
 function setupDatePicker() {
 	$('#dp-start').datetimepicker({locale: 'zh_CN'});
@@ -235,9 +157,58 @@ function setupDatePicker() {
 	$('#dp-start').data('DateTimePicker').date(now);
 }
 
-function resetRuntimeListen() {
-	rtSeries[0].data = [];
-	rtplot = $.plot($('#runtime-status'),rtSeries,rtflotopt);
+function toggleULPlot(seriesIdx) {
+	if( ulplot ) {
+		var data = ulplot.getData();
+		data[seriesIdx].lines.show = !data[seriesIdx].lines.show;
+		ulplot.setData(data);
+		ulplot.draw();
+	}
+}
+
+function toggleSLPlot(seriesIdx) {
+	if( slplot ) {
+		var data = slplot.getData();
+		data[seriesIdx].lines.show = !data[seriesIdx].lines.show;
+		slplot.setData(data);
+		slplot.draw();
+	}
+}
+
+function updateUserList() {
+	$('#user-list').children().remove();
+	api.companyUsers(current_cid,function(users,err){
+		if( !users ) {
+			return;
+		}
+		for(var i=0; i < users.length; i++) {
+			$('#user-list').append('<a href="/runtime/user/detail/?uid=' + users[i] + '" class="list-group-item">' + users[i] + '</a>');
+		}
+	});
+}
+
+function updateGroupList() {
+	$('#group-list').children().remove();
+	api.companyGroups(current_cid,function(groups,err){
+		if( !groups ) {
+			return;
+		}
+		for(var i=0; i < groups.length; i++){
+			$('#group-list').append('<a href="/runtime/group/detail/?gid=' + groups[i] + '" class="list-group-item">' + groups[i] + '</a>');
+		}
+	});
+}
+
+function updateSubsList() {
+	$('#subs-list').children().remove();
+	api.companySubs(current_cid,function(subs,err){
+		if( !subs ) {
+			return;
+		}
+		for(var i=0; i < subs.length; i++){
+			$('#subs-list').append('<a href="/runtime/company/detail/?cid=' + subs[i] + '" class="list-group-item">' + subs[i] + '</a>');
+		}
+	});
 }
 
 function resetUserLoad() {
@@ -248,7 +219,7 @@ function resetUserLoad() {
 }
 
 function updateUserLoad() {
-	if( ! curServer) {
+	if( ! current_cid ) {
 		return;
 	}
 	var start = $('#dp-start').data('DateTimePicker').date();
@@ -258,7 +229,7 @@ function updateUserLoad() {
 		end: end.format('YYYY-MM-DD HH:mm:ss')
 	};
 	resetUserLoad();
-	api.serverUserLoad(curServer,options,function(loads){
+	api.companyUserLoad(current_cid,options,function(loads){
 		if( !loads ) {
 			return;
 		}
@@ -301,7 +272,7 @@ function resetSpeakLoad() {
 }
 
 function updateSpeakLoad() {
-	if( ! curServer ) {
+	if( ! current_cid ) {
 		return;
 	}
 	var start = $('#dp-start').data('DateTimePicker').date();
@@ -312,7 +283,7 @@ function updateSpeakLoad() {
 	};
 	resetSpeakLoad();
 
-	api.serverSpeakLoad(curServer,options,function(loads){
+	api.companySpeakLoad(current_cid,options,function(loads){
 		if( !loads ) {
 			return;
 		}
@@ -344,93 +315,46 @@ function updateSpeakLoad() {
 	});
 }
 
-function updateServerList() {
-	$('#server-list').children().remove();
-	api.getServerList(function(servers) {
-		if( !servers ) {
-			return;
-		}
-		for(var i=0; i < servers.length; i++) {
-			var server = servers[i];
-			$('#server-list').append('<button type="button" class="btn btn-default">' + server + '</button>');
-		}
-		$('#server-list button').click(function(){
-			$(this).addClass('active').siblings().removeClass('active');
-			var val = $(this)[0].innerHTML;
-			if(val && curServer != val ) {
-				curServer = val;
-				refresh();
-			}
-		});
-
-		if( ! curServer ) {
-			curServer = servers[0];
-			$('#server-list button:first-child').addClass('active');
-			refresh();
-		} else {
-			var dom = $('input[type=button][value="' + curServer + '"]');
-			if( dom ) {
-				dom.addClass('active');
-			}
-		}
-	});
-}
-
-function updateRuntimeListen() {
-	resetRuntimeListen();
-	api.stopListenServerEvent();
-	api.listenServerEvent('appload-' + curServer,{
-		onMessage: function(e) {
-			console.info(e);
-		},
-		onError: function(e) {
-			console.info(e);
-		},
-		events: {
-			serverload: function(e) {
-				var report = JSON.parse(e.data);
-				rtSeries[0].data.push( [report.bucket,report.userLoad.onlines] );
-				if( rtSeries[0].data.length > 100 ) {
-					rtSeries[0].data = rtSeries[0].data.slice(1);
-				}
-				rtplot.setData(rtSeries);
-				rtplot.draw();
-			}
-		}
-	});
-}
-
-function refresh() {
-	if( !curServer ) {
-		return;
-	}
-	updateRuntimeListen();
-	updateUserLoad();
-	updateSpeakLoad();
-}
-
 function initFromUrl() {
-	var server = api.getURLParameter('server');
-	if( server ) {
-		curServer = server;
+	var cid = api.getURLParameter('cid');
+	if( cid ) {
+		$('#cid-edit').val(cid);
 		refresh();
 	}
 }
 
+function refresh() {
+	var cid = $('#cid-edit').val();
+	if( !cid || cid == current_cid ) {
+		return;
+	}
+	current_cid = cid;
+	updateUserList();
+	updateGroupList();
+	updateSubsList();
+
+	updateUserLoad();
+	updateSpeakLoad();
+}
 
 $(document).ready(function(){
 	api = $.eChatApi();
 	setupDatePicker();
-	resetRuntimeListen();
 	resetUserLoad();
 	resetSpeakLoad();
-
-	$('#refresh').click(function(){
-		if( curServer ) {
-			updateUserLoad();
-			updateSpeakLoad();
+	$('#cid-btn').click(function(){
+		refresh();
+	});
+	$('#cid-edit').keydown(function(e){
+		if(e.keyCode == 13) {
+			refresh();
 		}
 	});
+	$('#refresh').click(function(){
+		updateUserLoad();
+		updateSpeakLoad();
+	});
+	
 	initFromUrl();
-	updateServerList();
-});
+})
+

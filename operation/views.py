@@ -38,45 +38,12 @@ def server(request):
 def user_detail(request):
     return render(request, "operation/user_detail.html",{"nav_active":"user"})
 
-def charts(request):
-    """Charts page.
-    """
-    return render(request, "operation/sb_admin_charts.html",
-                  {"nav_active":"charts"})
-def tables(request):
-    """Tables page.
-    """
-    return render(request, "operation/sb_admin_tables.html",
-                  {"nav_active":"tables"})
-def forms(request):
-    """Forms page.
-    """
-    return render(request, "operation/sb_admin_forms.html",
-                  {"nav_active":"forms"})
-def bootstrap_elements(request):
-    """Bootstrap elements page.
-    """
-    return render(request, "operation/sb_admin_bootstrap_elements.html",
-                  {"nav_active":"bootstrap_elements"})
-def bootstrap_grid(request):
-    """Bootstrap grid page.
-    """
-    return render(request, "operation/sb_admin_bootstrap_grid.html",
-                  {"nav_active":"bootstrap_grid"})
-def dropdown(request):
-    """Dropdown  page.
-    """
-    return render(request, "operation/sb_admin_dropdown.html",
-                  {"nav_active":"dropdown"})
-def rtl_dashboard(request):
-    """RTL Dashboard page.
-    """
-    return render(request, "operation/sb_admin_rtl_dashboard.html",
-                  {"nav_active":"rtl_dashboard"})
+@login_required
+def company_detail(request):
+    return render(request, "operation/company_detail.html",{"nav_active":"company"})
 
-def blank(request):
-    """Blank page.
-    """
-    return render(request, "operation/sb_admin_blank.html",
-                  {"nav_active":"blank"})
+@login_required
+def group_detail(request):
+    return render(request, "operation/group_detail.html",{"nav_active":"group"})
+
 

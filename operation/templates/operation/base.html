@@ -156,6 +156,12 @@
                     <li {% if nav_active == "server" %}class="active"{% endif %}>
                         <a href="{% url "server" %}"><i class="fa fa-fw fa-server"></i> 服务器</a>
                     </li>
+                    <li {% if nav_active == "company" %}class="active"{% endif %}>
+                        <a href="{% url "company_detail" %}"><i class="fa fa-fw fa-user"></i> 公司信息</a>
+                    </li>
+                    <li {% if nav_active == "group" %}class="active"{% endif %}>
+                        <a href="{% url "group_detail" %}"><i class="fa fa-fw fa-user"></i> 群组信息</a>
+                    </li>
                     <li {% if nav_active == "device" %}class="active"{% endif %}>
                         <a href="{% url "device" %}"><i class="fa fa-fw fa-mobile"></i> 设备一览</a>
                     </li>

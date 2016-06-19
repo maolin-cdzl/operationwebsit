@@ -1,0 +1,47 @@
+{% extends "operation/base.html" %}
+{% load static %}
+{% block sb_admin_title %}群组{% endblock sb_admin_title %}
+{% block sb_admin_subheading %}<small>群组信息</small>{% endblock sb_admin_subheading %}
+{% block sb_admin_breadcrumb %}{% endblock sb_admin_breadcrumb %}
+{% block sb_admin_breadcrumb_active %}{% endblock sb_admin_breadcrumb_active %}
+{% block sb_admin_content %}
+
+<div class="row">
+	<div class="input-group">
+		<input id="gid-edit" type="text" class="form-control" placeholder="Input gid here...">
+		<span class="input-group-btn">
+			<button id="gid-btn" class="btn btn-default" type="button">Go!</button>
+		</span>
+	</div>
+</div>
+
+<div id="server-hold" class="row">
+</div>
+
+<div class="row">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-recycle fa-fw"></i> 用户</h3>
+		</div>
+		<div class="panel-body">
+			<ul id="user-list" class="list-group">
+				<li class="list-group-item"></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+{% endblock sb_admin_content %}
+
+{% block sb_admin_custom_js %}
+    <script src="{% static "js/moment-with-locales.min.js" %}"></script>
+    <script src="{% static "js/bootstrap-datetimepicker.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.resize.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.time.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.axislabels.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.tooltip.min.js" %}"></script>
+    <script src="{% static "js/echat-api.js" %}"></script>
+    <script src="{% static "js/group-detail.js" %}"></script>
+{% endblock sb_admin_custom_js %}
+

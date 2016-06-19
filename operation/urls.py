@@ -8,6 +8,7 @@ urlpatterns = [
     url(r'runtime/$', opt_views.runtime, name='runtime'),
     url(r'runtime/device/$', opt_views.device, name='device'),
     url(r'runtime/server/$', opt_views.server,name='server'),
+    url(r'runtime/user/detail/$', opt_views.user_detail,name='user_detail'),
     url(r'charts/$', opt_views.charts, name='sb_admin_charts'),
     url(r'tables/$', opt_views.tables, name='sb_admin_tables'),
     url(r'forms/$', opt_views.forms, name='sb_admin_forms'),

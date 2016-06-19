@@ -45,7 +45,7 @@ function createServerPanels(servers) {
 }
 */
 
-function setUpDatePicker() {
+function setupDatePicker() {
 	$('#dp-start').datetimepicker({locale: 'zh_CN'});
 	$('#dp-end').datetimepicker({
 		locale: 'zh_CN',
@@ -265,7 +265,7 @@ $(document).ready(function(){
 	}];
 	rtplot = $.plot($('#runtime-status'),rtSeries,rtflotopt);
 
-	setUpDatePicker();
+	setupDatePicker();
 	api.getServerList(function(servers) {
 		var btnGroup = document.getElementById("server-list");
 		for(var i=0; i < servers.length; i++) {
@@ -326,8 +326,8 @@ $(document).ready(function(){
 		var start = $('#dp-start').data('DateTimePicker').date();
 		var end = $('#dp-end').data('DateTimePicker').date();
 		var options = {
-			start: start.utc().format(),
-			end: end.utc().format()
+			start: start.format('YYYY-MM-DD HH:mm:ss'),
+			end: end.format('YYYY-MM-DD HH:mm:ss')
 		};
 		api.serverUserLoad(server,options,function(loads){
 			console.log('recv user loads: %d',loads.length);

@@ -159,6 +159,9 @@
                     <li {% if nav_active == "device" %}class="active"{% endif %}>
                         <a href="{% url "device" %}"><i class="fa fa-fw fa-mobile"></i> 设备一览</a>
                     </li>
+                    <li {% if nav_active == "user" %}class="active"{% endif %}>
+                        <a href="{% url "user_detail" %}"><i class="fa fa-fw fa-user"></i> 用户信息</a>
+                    </li>
                 </ul>
             </div>{% endblock sb_admin_sidebar %}
             <!-- /.navbar-collapse -->

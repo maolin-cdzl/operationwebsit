@@ -1,0 +1,142 @@
+{% extends "operation/base.html" %}
+{% load static %}
+{% block sb_admin_title %}用户{% endblock sb_admin_title %}
+{% block sb_admin_subheading %}<small>用户信息</small>{% endblock sb_admin_subheading %}
+{% block sb_admin_breadcrumb %}{% endblock sb_admin_breadcrumb %}
+{% block sb_admin_breadcrumb_active %}{% endblock sb_admin_breadcrumb_active %}
+{% block sb_admin_content %}
+<div class="row">
+	<div class="input-group">
+		<input id="uid-edit" type="text" class="form-control" placeholder="Input uid here...">
+		<span class="input-group-btn">
+			<button id="uid-btn" class="btn btn-default" type="button">Go!</button>
+		</span>
+	</div>
+</div>
+
+<table id="user-info" class="table">
+	<thead>
+		<tr>
+			<th>UID</th>
+			<th>账号</th>
+			<th>姓名</th>
+			<th>角色</th>
+			<th>公司</th>
+			<th>创建日期</th>
+			<th>服务开始</th>
+			<th>服务结束</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+<table id="user-runtime" class="table">
+	<thead>
+		<tr>
+			<th>UID</th>
+			<th>在线状态</th>
+			<th>服务器</th>
+			<th>群组</th>
+			<th>设备</th>
+			<th>最后上线</th>
+			<th>最后下线</th>
+		</tr>
+	</thead>
+	<tbody>
+	</tbody>
+</table>
+
+<div class="row">
+    <div class='col-md-4'>
+        <div class="form-group">
+            <div class='input-group date' id='dp-start'>
+                <input type='text' class="form-control" />
+                <span class="input-group-addon">
+                    <span class="fa fa-calendar"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+	<div class='col-md-4'>
+		<div class="form-group">
+			<div class='input-group date' id='dp-end'>
+				<input type='text' class="form-control" />
+				<span class="input-group-addon">
+					<span class="fa fa-calendar"></span>
+				</span>
+			</div>
+		</div>
+	</div>
+	<button id="refresh" type="button" class="btn btn-default col-md-2">刷新</button>
+</div>
+<div class="row">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-money fa-fw"></i> 上线记录</h3>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table id="session-table" class="table table-bordered table-hover table-striped">
+					<thead>
+						<tr>
+							<th>上线时间</th>
+							<th>下线时间</th>
+							<th>服务器</th>
+							<th>设备</th>
+							<th>设备ID</th>
+							<th>IMSI</th>
+							<th>IP</th>
+							<th>CTX</th>
+							<th>Payload</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title"><i class="fa fa-money fa-fw"></i> 操作记录</h3>
+		</div>
+		<div class="panel-body">
+			<div class="table-responsive">
+				<table id="action-table" class="table table-bordered table-hover table-striped">
+					<thead>
+						<tr>
+							<th>时间</th>
+							<th>事件</th>
+							<th>GID</th>
+							<th>Target</th>
+							<th>TargetGot</th>
+							<th>TargetDent</th>
+							<th>Count</th>
+							<th>SW</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock sb_admin_content %}
+{% block sb_admin_custom_js %}
+    <script src="{% static "js/moment-with-locales.min.js" %}"></script>
+    <script src="{% static "js/bootstrap-datetimepicker.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.tooltip.min.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.resize.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.time.js" %}"></script>
+    <script src="{% static "js/plugins/flot/jquery.flot.axislabels.js" %}"></script>
+    <script src="{% static "js/jquery.sse.js" %}"></script>
+    <script src="{% static "js/echat-api.js" %}"></script>
+    <script src="{% static "js/user-detail.js" %}"></script>
+{% endblock sb_admin_custom_js %}

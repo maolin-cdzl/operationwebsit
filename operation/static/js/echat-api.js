@@ -23,13 +23,16 @@
 					url: host_url + url,
 					method: 'GET',
 					success: function(receivedData,status,info) {
-						if( typeof(receivedData) === 'string' ) {
-							callback(JSON.parse(receivedData));
-						} else {
-							callback(receivedData);
-						}
+						callback(receivedData);
+						//if( typeof(receivedData) === 'string' ) {
+						//	callback(JSON.parse(receivedData));
+						//} else {
+						//	callback(receivedData);
+						//}
 					},
-					error: api.onAjaxError
+					error: function(e) {
+						callback(null,e);
+					}
 				});
 			};
 			api._getEntityAttrib = function(entity,id,attrib,callback) {
@@ -37,13 +40,16 @@
 					url: host_url + '/' + entity + '/' + id + '/' + attrib,
 					method: 'GET',
 					success: function(receivedData,status,info) {
-						if( typeof(receivedData) === 'string' ) {
-							callback(JSON.parse(receivedData));
-						} else {
-							callback(receivedData);
-						}
+						callback(receivedData);
+						//if( typeof(receivedData) === 'string' ) {
+						//	callback(JSON.parse(receivedData));
+						//} else {
+						//	callback(receivedData);
+						//}
 					},
-					error: api.onAjaxError
+					error: function(e){
+						callback(null,e);
+					}
 				});
 			};
 			api._getEntityAttribWithParam = function(entity,id,attrib,options,callback) {
@@ -52,13 +58,16 @@
 					method: 'GET',
 					data: options,
 					success: function(receivedData,status,info) {
-						if( typeof(receivedData) === 'string' ) {
-							callback(JSON.parse(receivedData));
-						} else {
-							callback(receivedData);
-						}
+						callback(receivedData);
+						//if( typeof(receivedData) === 'string' ) {
+						//	callback(JSON.parse(receivedData));
+						//} else {
+						//	callback(receivedData);
+						//}
 					},
-					error: api.onAjaxError
+					error: function(e) {
+						callback(null,e);
+					}
 				});
 			};
 
@@ -97,6 +106,9 @@
 
 			api.userCount = function(callback) {
 				api._getStaticUrl('/user/count',callback);
+			};
+			api.userInfo = function(uid,callback) {
+				api._getEntityAttrib('user',uid,'info',callback);
 			};
 			api.userCompany = function(uid,callback) {
 				api._getEntityAttrib('user',uid,'company',callback);

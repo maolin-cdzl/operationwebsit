@@ -32,8 +32,11 @@ def device(request):
 
 @login_required
 def server(request):
-    return render(request, "operation/server.html",
-                  {"nav_active":"server"})
+    return render(request, "operation/server.html",{"nav_active":"server"})
+
+@login_required
+def user_detail(request):
+    return render(request, "operation/user_detail.html",{"nav_active":"user"})
 
 def charts(request):
     """Charts page.

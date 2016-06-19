@@ -2,7 +2,7 @@
 	$.extend({
 		eChatApi: function() {
 			var api = {};
-			var host_url = 'http://139.198.2.25:8080/rt';
+			var host_url = 'http://139.198.2.25:8081/rt';
 
 			api.getURLParameter= function(sParam) {
 				var sPageURL = window.location.search.substring(1);

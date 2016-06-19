@@ -1,9 +1,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth import views as auth_views
+from django.contrib import admin
 from . import views as opt_views
 
 urlpatterns = [
     url(r'^$', opt_views.login, name='login'),
+    url(r'^admin/', admin.site.urls),
     url(r'login/$', opt_views.login,name='login' ),
     url(r'runtime/$', opt_views.runtime, name='runtime'),
     url(r'runtime/device/$', opt_views.device, name='device'),
